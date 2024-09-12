@@ -12,12 +12,10 @@ import html
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
 
-# Configuration
 DATABASE_PATH = os.getenv('DATABASE_PATH', 'D:/Pythonproject/Virtualhealthassistant/data/medquad.db')
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 CSE_ID = os.getenv('CSE_ID')
@@ -26,7 +24,6 @@ CLINICALBERT_MODEL_NAME = "emilyalsentzer/Bio_ClinicalBERT"
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 USE_AUTH_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
 
-# Setup SQLAlchemy
 engine = create_engine(f'sqlite:///{DATABASE_PATH}')
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
@@ -41,7 +38,6 @@ class QuestionAnswer(Base):
 
 Base.metadata.create_all(engine)
 
-# Load models and tokenizers
 def load_model_and_tokenizer(model_name):
     tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=USE_AUTH_TOKEN)
     model = AutoModelForSequenceClassification.from_pretrained(model_name, use_auth_token=USE_AUTH_TOKEN)
@@ -57,14 +53,12 @@ def load_embedding_model(model_name):
 
 embedding_tokenizer, embedding_model = load_embedding_model(EMBEDDING_MODEL_NAME)
 
-# Prediction with model
 def predict_with_model(tokenizer, model, text):
     inputs = tokenizer(text, return_tensors="pt")
     outputs = model(**inputs)
     predictions = torch.nn.functional.softmax(outputs.logits, dim=-1)
     return predictions
 
-# Generate embeddings for text
 def get_embeddings(text):
     inputs = embedding_tokenizer(text, return_tensors="pt")
     with torch.no_grad():
@@ -72,7 +66,6 @@ def get_embeddings(text):
     embeddings = outputs.last_hidden_state.mean(dim=1).numpy()
     return embeddings
 
-# Check if query is medical-related
 def is_medical_related(text):
     try:
         biobert_predictions = predict_with_model(biobert_tokenizer, biobert_model, text)
@@ -86,7 +79,6 @@ def is_medical_related(text):
         print(f"Error in model prediction: {e}")
         return False
 
-# Search the SQLite database for a query
 def search_db(query):
     try:
         result = session.query(QuestionAnswer).filter(QuestionAnswer.question.ilike(f'%{query}%')).first()
@@ -97,7 +89,6 @@ def search_db(query):
         print(f"Error querying database: {e}")
         return None
 
-# Search Google using Custom Search API
 def search_google(query):
     try:
         url = 'https://www.googleapis.com/customsearch/v1'
@@ -138,7 +129,6 @@ def search_google(query):
         print(f"Google API error: {e}")
         return {'result': 'Error fetching results', 'source': 'none'}
 
-# Add new question-answer pair to the SQLite database
 def update_db(question, answer):
     try:
         embedding = get_embeddings(question).flatten().tolist()
@@ -149,7 +139,6 @@ def update_db(question, answer):
     except Exception as e:
         print(f"Error updating database: {e}")
 
-# Find similar queries based on embeddings
 def find_similar_query(query, threshold=0.8):
     try:
         query_embedding = get_embeddings(query)
@@ -166,7 +155,6 @@ def find_similar_query(query, threshold=0.8):
         print(f"Error in similarity search: {e}")
     return None
 
-# Flask route for handling search requests
 @app.route('/s', methods=['GET'])
 def search():
     query = request.args.get('q', '')
@@ -191,7 +179,6 @@ def search():
         if result and 'results' in result and len(result['results']) > 0:
             relevant_content = result['results'][0]['full_content']
             
-            # Check if the query already exists in the database
             existing_entry = session.query(QuestionAnswer).filter(QuestionAnswer.question == query).first()
             if existing_entry:
                 existing_entry.answer = relevant_content
