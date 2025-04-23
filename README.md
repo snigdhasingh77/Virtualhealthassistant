@@ -1,18 +1,35 @@
 # 🩺 Virtual Health Assistant
 
+![Python](https://img.shields.io/badge/python-3.10-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Model](https://img.shields.io/badge/model-BioBERT%20%7C%20MiniLM%20%7C%20ClinicalBERT-blueviolet)
+
 A Flask-based NLP-powered assistant that delivers reliable, context-aware medical information. It intelligently combines a local database of verified Q&A with real-time external medical search powered by the Google Custom Search API. The system leverages domain-specific Transformer models like BioBERT and ClinicalBERT, alongside semantic sentence embeddings (MiniLM), to provide explainable and relevant responses.
+
+---
+
+## 📚 Table of Contents
+
+- 🚀 Features
+- 🧱 Tech Stack
+- 🧠 Architecture
+- 🔄 Example Query Flow
+- 🌍 Project Motivation
+- 🛠 How to Run Locally
+- 📝 Related Blog
+- 🪪 License
 
 ---
 
 ## 🚀 Features
 
-- Predicts whether a query is medically relevant using BioBERT and ClinicalBERT  
-- Searches a local MedQuAD-derived database for trusted answers  
-- Performs semantic similarity search via MiniLM embeddings  
-- Falls back to Google Custom Search API if no match is found  
-- Extracts, ranks, and parses live web content using BeautifulSoup  
-- Stores new medical queries + embeddings for future lookup (continuous learning)  
-- Secure configuration using dotenv (API keys + tokens)  
+- ✅ Predicts whether a query is medically relevant using BioBERT and ClinicalBERT  
+- ✅ Searches a local MedQuAD-derived database for trusted answers  
+- ✅ Performs semantic similarity search via MiniLM embeddings  
+- ✅ Falls back to Google Custom Search API if no match is found  
+- ✅ Extracts, ranks, and parses live web content using BeautifulSoup  
+- ✅ Stores new medical queries + embeddings for future lookup (continuous learning)  
+- ✅ Secure configuration using dotenv (API keys + tokens)  
 
 ---
 
@@ -69,14 +86,12 @@ In regions with limited healthcare access, this tool provides a fast, informativ
 
 2. Create a .env file with the following keys:
 
-GOOGLE_API_KEY=your_key_here
-
-CSE_ID=your_custom_search_id
-
-HUGGINGFACE_TOKEN=your_hf_token
-
+```env
+GOOGLE_API_KEY=your_key_here  
+CSE_ID=your_custom_search_id  
+HUGGINGFACE_TOKEN=your_hf_token  
 DATABASE_PATH=your_db_path (or leave default)
-
+```
 
 3. Install dependencies:
 
