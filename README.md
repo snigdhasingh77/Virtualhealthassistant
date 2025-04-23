@@ -23,13 +23,13 @@ A Flask-based NLP-powered assistant that delivers reliable, context-aware medica
 
 ## 🚀 Features
 
-- ✅ Predicts whether a query is medically relevant using BioBERT and ClinicalBERT  
-- ✅ Searches a local MedQuAD-derived database for trusted answers  
-- ✅ Performs semantic similarity search via MiniLM embeddings  
-- ✅ Falls back to Google Custom Search API if no match is found  
-- ✅ Extracts, ranks, and parses live web content using BeautifulSoup  
-- ✅ Stores new medical queries + embeddings for future lookup (continuous learning)  
-- ✅ Secure configuration using dotenv (API keys + tokens)  
+-  Predicts whether a query is medically relevant using BioBERT and ClinicalBERT  
+-  Searches a local MedQuAD-derived database for trusted answers  
+-  Performs semantic similarity search via MiniLM embeddings  
+-  Falls back to Google Custom Search API if no match is found  
+-  Extracts, ranks, and parses live web content using BeautifulSoup  
+-  Stores new medical queries + embeddings for future lookup (continuous learning)  
+-  Secure configuration using dotenv (API keys + tokens)  
 
 ---
 
@@ -107,8 +107,7 @@ python app.py
 
 ## 📝 Related Blog
 
-👉 How I Built an NLP Health Assistant Using BioBERT, LangModels & Google Search  
-🔗 https://snigdhasingh7.wordpress.com/2024/08/16/building-a-virtual-health-assistant-with-flask-and-nlp/
+👉 How I Built an NLP Health Assistant Using BioBERT, LangModels & Google Search
 
 ---
 
