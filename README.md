@@ -10,14 +10,14 @@ A Flask-based NLP-powered assistant that delivers reliable, context-aware medica
 
 ## 📚 Table of Contents
 
-- 🚀 Features
-- 🧱 Tech Stack
-- 🧠 Architecture
-- 🔄 Example Query Flow
-- 🌍 Project Motivation
-- 🛠 How to Run Locally
-- 📝 Related Blog
-- 🪪 License
+-  Features
+-  Tech Stack
+-  Architecture
+-  Example Query Flow
+-  Project Motivation
+-  How to Run Locally
+-  Related Blog
+-  License
 
 ---
 
@@ -107,7 +107,8 @@ python app.py
 
 ## 📝 Related Blog
 
-👉 How I Built an NLP Health Assistant Using BioBERT, LangModels & Google Search
+👉 [How I Built an NLP Health Assistant Using BioBERT, LangModels & Google Search](https://snigdhasingh7.wordpress.com/2024/08/16/building-a-virtual-health-assistant-with-flask-and-nlp/)
+
 
 ---
 
