@@ -70,9 +70,13 @@ In regions with limited healthcare access, this tool provides a fast, informativ
 2. Create a .env file with the following keys:
 
 GOOGLE_API_KEY=your_key_here
+
 CSE_ID=your_custom_search_id
+
 HUGGINGFACE_TOKEN=your_hf_token
+
 DATABASE_PATH=your_db_path (or leave default)
+
 
 3. Install dependencies:
 
